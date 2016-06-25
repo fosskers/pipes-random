@@ -52,8 +52,21 @@ normal :: Double -> Double -> Producer Double IO ()
 normal m sd = for pool $ \g -> forever (lift (R.normal m sd g) >>= yield)
 
 -- | Given some `V.Vector`, produce its elements in a random order, once each.
+--
+-- > >>> P.toListM $ endless (V.fromList @Data.Vector.Vector ['a'..'z'])
+-- > "rkzpnwjfeqotvdlsaxiuhcbymg"
 finite :: V.Vector v a => v a -> Producer a IO ()
-finite = undefined
+finite = for pool . f
+  where f v g | V.null v = pure ()
+              | otherwise = do
+                  i <- lift $ R.uniformR (0, V.length v - 1) g
+                  let v' = swap 0 i v
+                  yield $ V.unsafeHead v'  -- It won't be empty.
+                  f (V.tail v') g
+
+-- | Swap two positions in a given `V.Vector`. Doesn't check bounds.
+swap :: V.Vector v a => Int -> Int -> v a -> v a
+swap i j v = v V.// [(i, V.unsafeIndex v j), (j, V.unsafeIndex v i)]
 
 -- | Given some `V.Vector`, endlessly produce elements from it.
 --
@@ -61,4 +74,4 @@ finite = undefined
 -- > "nvecotyjhestgrrlganj"
 endless :: V.Vector v a => v a -> Producer a IO ()
 endless v | V.null v = pure ()
-          | otherwise = uniformR (0, V.length v - 1) >-> P.map (\i -> v V.! i)
+          | otherwise = uniformR (0, V.length v - 1) >-> P.map (V.unsafeIndex v)
