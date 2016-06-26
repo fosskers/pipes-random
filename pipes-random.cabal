@@ -19,7 +19,7 @@ library
   exposed-modules:     Pipes.Random
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.9 && <4.10
+  build-depends:       base >=4.8 && < 4.10
                      , mwc-random >= 0.13 && < 0.14
                      , pipes >= 4.1 && < 4.2
                      , vector >= 0.11 && < 0.12

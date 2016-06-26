@@ -1,5 +1,3 @@
-{-# LANGUAGE TypeApplications #-}
-
 -- |
 -- Module    : Pipes.Random
 -- Copyright : (c) Colin Woodbury, 2016
