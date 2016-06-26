@@ -9,6 +9,16 @@
 -- Producers for handling randomness.
 --
 -- == Random Numbers
+-- Use functions like `uniform` and `normal` to generate endless streams
+-- of random numbers of the standard `Num` types. For instance, you could
+-- perform some IO action based on a threshold:
+--
+-- > {-# LANGUAGE TypeApplications #-}  -- GHC8 only. Provides the @ syntax.
+-- >
+-- > import qualified Pipes.Prelude as P
+-- >
+-- > perhaps :: Effect IO ()
+-- > perhaps = uniform @Float >-> P.filter (> 0.1) >-> lift releaseTheHounds
 --
 -- == Random Elements from Containers
 -- We expose the functions `finite` and `endless` for randomly Producing
@@ -33,7 +43,7 @@
 -- > twenty :: Vector a -> Producer a IO ()
 -- > twenty v = endless v >-> P.take 20
 --
--- For the time being, only `V.Vector`s are supported.
+-- For the time being, only `V.Vector`s (all kinds) are supported.
 
 module Pipes.Random
   ( -- * Pseudo-random Number Generators
