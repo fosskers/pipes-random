@@ -22,7 +22,6 @@ library
   build-depends:       base >=4.9 && <4.10
                      , mwc-random >= 0.13 && < 0.14
                      , pipes >= 4.1 && < 4.2
-                     , primitive >= 0.6 && < 0.7
                      , vector >= 0.11 && < 0.12
   -- hs-source-dirs:
   default-language:    Haskell2010
