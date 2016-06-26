@@ -4,7 +4,7 @@
 name:                pipes-random
 version:             1.0.0
 synopsis:            Producers for handling randomness.
--- description:
+description:         Producers for handling randomness.
 license:             BSD3
 license-file:        LICENSE
 author:              Colin Woodbury
