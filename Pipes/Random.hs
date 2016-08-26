@@ -92,7 +92,7 @@ normal m sd = lift pool >>= \g -> forever (lift (R.normal m sd g) >>= yield)
 
 -- | Given some `V.Vector`, produce its elements in a random order, once each.
 --
--- > >>> P.toListM $ endless (V.fromList @Data.Vector.Vector ['a'..'z'])
+-- > >>> P.toListM $ finite (V.fromList @Data.Vector.Vector ['a'..'z'])
 -- > "rkzpnwjfeqotvdlsaxiuhcbymg"
 finite :: V.Vector v a => v a -> Producer a IO ()
 finite l = lift pool >>= f l
